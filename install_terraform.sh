@@ -6,6 +6,7 @@ rm $version
 cd /usr/bin
 sudo ln -s $HOME/terraform terraform
 cd ~/terraform-oci-workshop
+
 #Get OCI Plugin for Terraform
 wget "https://github.com/oracle/terraform-provider-oci/releases/download/v2.0.1/linux.tar.gz"
 tar -xvzf linux.tar.gz
@@ -14,3 +15,8 @@ rm -rf linux_386/ linux_arm/ linux.tar.gz
 mkdir ~/.terraform.d
 mkdir ~/.terraform.d/plugins
 mv linux_amd64/ ~/.terraform.d/plugins/
+
+# Get all necessary keys
+wget "https://objectstorage.us-phoenix-1.oraclecloud.com/p/XbirlNjAwBjE8dBN2StJDNkKESaWLCI5U_XR7rZCJBA/n/oracle_cloud_pursuit/b/kranthi/o/rsa-key-MEAN.zip"
+unzip rsa-key-MEAN.zip -d userdata/
+rm -rf rsa-key-MEAN.zip
