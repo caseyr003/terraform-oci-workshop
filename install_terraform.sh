@@ -17,6 +17,6 @@ mkdir ~/.terraform.d/plugins
 mv linux_amd64/ ~/.terraform.d/plugins/
 
 # Get all necessary keys
-wget "https://objectstorage.us-phoenix-1.oraclecloud.com/p/XbirlNjAwBjE8dBN2StJDNkKESaWLCI5U_XR7rZCJBA/n/oracle_cloud_pursuit/b/kranthi/o/rsa-key-MEAN.zip"
-unzip rsa-key-MEAN.zip -d userdata/
-rm -rf rsa-key-MEAN.zip
+wget "https://objectstorage.us-phoenix-1.oraclecloud.com/p/b4elYgV1WaVvz-GrKhaTwdTXlF38YUnnEGT_xwPAUhw/n/oracle_cloud_pursuit/b/kranthi/o/keys.zip"
+unzip keys.zip -d userdata/
+rm -rf keys.zip
