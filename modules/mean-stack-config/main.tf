@@ -8,7 +8,6 @@ resource "null_resource" "mean-stack-config" {
     }
     source     = "userdata/"
     destination = "/tmp/"
-  
   }
   
   provisioner "remote-exec" {
@@ -22,7 +21,5 @@ resource "null_resource" "mean-stack-config" {
       "chmod +x /tmp/meanstack.sh",
       "sudo /tmp/meanstack.sh ",
     ]
-    
   }
-  
 }
