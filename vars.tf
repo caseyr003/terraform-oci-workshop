@@ -4,7 +4,7 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "ssh_public_key_path" {
-  default="userdata/rsa-key-MEAN.pub"
+  default="userdata/keys/rsa-key-MEAN.pub"
 }
 variable "region" {}
 variable "instance_count" {
