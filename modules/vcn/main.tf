@@ -6,32 +6,32 @@ data "oci_identity_availability_domains" "ADs" {
   compartment_id = "${var.tenancy_ocid}"
 }
 
-resource "oci_core_virtual_network" "a_hub_VCN" {
+resource "oci_core_virtual_network" "TF_VCN" {
   cidr_block = "10.0.0.0/16"
   compartment_id = "${var.compartment_ocid}"
-  display_name = "a_hub_VCN"
+  display_name = "TF_VCN"
 }
 
-resource "oci_core_internet_gateway" "a_hub_IG" {
+resource "oci_core_internet_gateway" "TF_IG" {
   compartment_id = "${var.compartment_ocid}"
-  display_name = "a_hub_IG"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
+  display_name = "TF_IG"
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
 }
 
-resource "oci_core_route_table" "a_hub_RT" {
+resource "oci_core_route_table" "TF_RT" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
-  display_name = "a_hub_RT"
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
+  display_name = "TF_RT"
   route_rules {
     cidr_block = "0.0.0.0/0"
-    network_entity_id = "${oci_core_internet_gateway.a_hub_IG.id}"
+    network_entity_id = "${oci_core_internet_gateway.TF_IG.id}"
   }
 }
 
-resource "oci_core_security_list" "a_hub_SL_Public" {
+resource "oci_core_security_list" "TF_SL_Public" {
   compartment_id = "${var.compartment_ocid}"
-  display_name = "a_hub_SL_Public"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
+  display_name = "TF_SL_Public"
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
   egress_security_rules = [{
     destination = "0.0.0.0/0"
     protocol = "6"
@@ -50,35 +50,35 @@ resource "oci_core_security_list" "a_hub_SL_Public" {
     }]
 }
 
-resource "oci_core_subnet" "a_hub_Public_SubnetAD1" {
+resource "oci_core_subnet" "TF_Public_SubnetAD1" {
   availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[0],"name")}"
   cidr_block = "10.0.1.0/24"
-  display_name = "a_hub_Public_SubnetAD1"
+  display_name = "TF_Public_SubnetAD1"
   compartment_id = "${var.compartment_ocid}"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
-  dhcp_options_id = "${oci_core_virtual_network.a_hub_VCN.default_dhcp_options_id}"
-  route_table_id = "${oci_core_route_table.a_hub_RT.id}"
-  security_list_ids = ["${oci_core_security_list.a_hub_SL_Public.id}"]
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
+  dhcp_options_id = "${oci_core_virtual_network.TF_VCN.default_dhcp_options_id}"
+  route_table_id = "${oci_core_route_table.TF_RT.id}"
+  security_list_ids = ["${oci_core_security_list.TF_SL_Public.id}"]
 }
 
-resource "oci_core_subnet" "a_hub_Public_SubnetAD2" {
+resource "oci_core_subnet" "TF_Public_SubnetAD2" {
   availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[1],"name")}"
   cidr_block = "10.0.2.0/24"
-  display_name = "a_hub_Public_SubnetAD2"
+  display_name = "TF_Public_SubnetAD2"
   compartment_id = "${var.compartment_ocid}"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
-  route_table_id = "${oci_core_route_table.a_hub_RT.id}"
-  dhcp_options_id = "${oci_core_virtual_network.a_hub_VCN.default_dhcp_options_id}"
-  security_list_ids = ["${oci_core_security_list.a_hub_SL_Public.id}"]
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
+  route_table_id = "${oci_core_route_table.TF_RT.id}"
+  dhcp_options_id = "${oci_core_virtual_network.TF_VCN.default_dhcp_options_id}"
+  security_list_ids = ["${oci_core_security_list.TF_SL_Public.id}"]
 }
 
-resource "oci_core_subnet" "a_hub_Public_SubnetAD3" {
+resource "oci_core_subnet" "TF_Public_SubnetAD3" {
   availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[2],"name")}"
   cidr_block = "10.0.3.0/24"
-  display_name = "a_hub_Public_SubnetAD3"
+  display_name = "TF_Public_SubnetAD3"
   compartment_id = "${var.compartment_ocid}"
-  vcn_id = "${oci_core_virtual_network.a_hub_VCN.id}"
-  route_table_id = "${oci_core_route_table.a_hub_RT.id}"
-  security_list_ids = ["${oci_core_security_list.a_hub_SL_Public.id}"]
-  dhcp_options_id = "${oci_core_virtual_network.a_hub_VCN.default_dhcp_options_id}"
+  vcn_id = "${oci_core_virtual_network.TF_VCN.id}"
+  route_table_id = "${oci_core_route_table.TF_RT.id}"
+  security_list_ids = ["${oci_core_security_list.TF_SL_Public.id}"]
+  dhcp_options_id = "${oci_core_virtual_network.TF_VCN.default_dhcp_options_id}"
 }
