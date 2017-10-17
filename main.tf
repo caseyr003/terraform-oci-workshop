@@ -38,5 +38,5 @@ module "mean-stack-load-balancer" {
 
 
 output "MEAN Stack URL" {
-  value = "http://${module.mean-stack-load-balancer.lb_public_ip}:8080"
+  value = "http://${module.mean-stack-load-balancer.lb_public_ip[0]}:8080"
 }
