@@ -1,3 +1,4 @@
+userdata/keys
 terraform.*
 .terraform
 # -*- mode: gitignore; -*-

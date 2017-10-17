@@ -8,7 +8,7 @@ module "mean-stack" {
   source = "./modules/compute-instance"
   tenancy_ocid = "${var.tenancy_ocid}"
   compartment_ocid = "${var.compartment_ocid}"
-  ssh_public_key = "${file(var.ssh_public_key_path)}"
+  ssh_public_key = "${var.ssh_public_key}"
   instance_name = "meanstack"
   subnets = "${module.vcn.subnet2_ocid},${module.vcn.subnet3_ocid}"
   instance_count = "${var.instance_count}"
@@ -22,6 +22,7 @@ module "mean-stack-config" {
   compartment_ocid = "${var.compartment_ocid}"
   mean-stack-public-ip = "${module.mean-stack.items_comma}"
   instance_count = "${var.instance_count}"
+  ssh_private_key = "${var.ssh_authorized_private_key}"
 }
 
 module "mean-stack-load-balancer" {

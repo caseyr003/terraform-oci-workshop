@@ -4,7 +4,7 @@ resource "null_resource" "mean-stack-config" {
     connection {
       host = "${element(split(",", var.mean-stack-public-ip), count.index)}" 
       user = "opc"
-      private_key = "${file(var.ssh_private_key_path)}"
+      private_key = "${var.ssh_private_key}"
     }
     source     = "userdata/"
     destination = "/tmp/"
@@ -14,7 +14,7 @@ resource "null_resource" "mean-stack-config" {
     connection {
       host="${element(split(",", var.mean-stack-public-ip), count.index)}"
       user = "opc"
-      private_key = "${file(var.ssh_private_key_path)}"
+      private_key = "${var.ssh_private_key}"
     }
     
     inline = [
